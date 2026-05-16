@@ -1,0 +1,1233 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>THCS Quiz Challenge - Rung Chuông Vàng</title>
+<style>
+:root{--bg1:#5b6cff;--bg2:#ff8bd1;--card:#ffffff;--ink:#18203a;--muted:#64708a;--good:#16a34a;--bad:#ef4444;--gold:#fbbf24;--blue:#2563eb;--purple:#7c3aed}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:var(--ink);height:100vh;overflow:hidden;background:linear-gradient(135deg,var(--bg1),var(--bg2));}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 15% 15%,rgba(255,255,255,.28),transparent 26%),radial-gradient(circle at 90% 20%,rgba(255,255,255,.24),transparent 20%),radial-gradient(circle at 65% 92%,rgba(255,255,255,.20),transparent 26%);pointer-events:none}
+.app{height:100vh;width:100vw;display:flex;align-items:center;justify-content:center;padding:14px;position:relative}.screen{width:min(1160px,100%);height:min(720px,calc(100vh - 28px));background:rgba(255,255,255,.94);border:3px solid rgba(255,255,255,.65);border-radius:28px;box-shadow:0 28px 90px rgba(20,20,80,.32);overflow:hidden;position:relative}.hidden{display:none!important}.start{height:100%;display:grid;grid-template-columns:1.05fr .95fr;gap:0}.hero{padding:44px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(145deg,#fff7ad,#ffd2f0)}.badge{display:inline-flex;width:max-content;gap:8px;align-items:center;background:#111827;color:#fff;border-radius:999px;padding:9px 14px;font-weight:800;font-size:14px}.hero h1{font-size:clamp(36px,5vw,68px);line-height:.96;margin:22px 0 12px;letter-spacing:-2px}.hero p{font-size:20px;color:#374151;line-height:1.45;margin:0 0 18px}.features{display:grid;gap:10px;margin-top:14px}.feature{background:rgba(255,255,255,.72);border-radius:18px;padding:12px 14px;font-weight:750}.login{padding:44px;display:flex;flex-direction:column;justify-content:center;gap:16px;background:#fff}.login h2{font-size:34px;margin:0}.login label{font-weight:800}.login input{font-size:22px;padding:18px 20px;border:3px solid #e5e7eb;border-radius:18px;outline:none}.login input:focus{border-color:var(--purple);box-shadow:0 0 0 5px rgba(124,58,237,.15)}button{border:0;border-radius:18px;font-weight:900;cursor:pointer;transition:.16s transform,.16s box-shadow,.16s opacity}.primary{font-size:22px;padding:18px 24px;color:white;background:linear-gradient(135deg,#7c3aed,#2563eb);box-shadow:0 14px 30px rgba(37,99,235,.28)}button:hover{transform:translateY(-1px)}button:disabled{opacity:.65;cursor:not-allowed}.note{color:var(--muted);font-size:15px;line-height:1.35}.game{height:100%;display:grid;grid-template-rows:auto 1fr auto;background:linear-gradient(180deg,#f8fbff,#fff)}.top{padding:14px 18px 10px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;border-bottom:1px solid #eef2ff}.stats{display:flex;gap:9px;flex-wrap:wrap}.pill{background:#eef2ff;border:1px solid #dde6ff;border-radius:999px;padding:9px 12px;font-weight:850;font-size:15px}.pill.gold{background:#fff7d6;border-color:#fde68a}.soundBtn{padding:10px 13px;background:#111827;color:#fff;font-size:15px}.progressWrap{grid-column:1/-1;height:12px;background:#e5e7eb;border-radius:99px;overflow:hidden}.progress{height:100%;width:0;background:linear-gradient(90deg,#22c55e,#facc15,#f97316);border-radius:99px;transition:.35s width}.stage{padding:14px 18px 12px;display:grid;grid-template-rows:auto 1fr;gap:12px;min-height:0}.questionCard{background:linear-gradient(135deg,#fff,#fffbeb);border:3px solid #fde68a;border-radius:22px;padding:18px 20px;box-shadow:0 10px 24px rgba(251,191,36,.15);min-height:122px;display:flex;align-items:center}.subject{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:#7c3aed;font-weight:950;margin-bottom:8px}.qText{font-size:clamp(22px,3.6vh,36px);line-height:1.16;font-weight:950}.answers{display:grid;grid-template-columns:1fr 1fr;gap:12px;min-height:0}.answer{background:#fff;border:3px solid #e5e7eb;border-radius:22px;padding:14px 16px;min-height:86px;text-align:left;display:flex;align-items:center;gap:13px;font-size:clamp(17px,2.5vh,24px);font-weight:900;box-shadow:0 10px 22px rgba(31,41,55,.08)}.answer .letter{min-width:42px;height:42px;border-radius:14px;background:#eef2ff;color:#3730a3;display:grid;place-items:center;font-weight:1000}.answer.correct{border-color:#22c55e;background:#dcfce7}.answer.correct .letter{background:#22c55e;color:#fff}.answer.wrong{border-color:#ef4444;background:#fee2e2}.answer.wrong .letter{background:#ef4444;color:#fff}.answer.dim{opacity:.55}.feedback{height:72px;padding:10px 18px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid #eef2ff}.bubble{font-size:clamp(20px,3vh,32px);font-weight:1000}.bubble.good{color:var(--good)}.bubble.bad{color:var(--bad)}.nextHint{color:var(--muted);font-weight:800}.finish{height:100%;display:flex;align-items:center;justify-content:center;padding:26px;background:linear-gradient(135deg,#fef3c7,#dbeafe,#fce7f3)}.result{width:min(760px,100%);background:#fff;border-radius:30px;padding:34px;box-shadow:0 25px 70px rgba(20,20,80,.23);text-align:center}.result h1{font-size:50px;margin:0 0 10px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}.box{border-radius:22px;padding:18px;background:#f8fafc;border:2px solid #e5e7eb}.box b{display:block;font-size:34px}.box span{font-weight:850;color:var(--muted)}.photoTip{background:#111827;color:#fff;border-radius:18px;padding:13px 16px;font-weight:800;margin:12px 0 18px}.celebrate{animation:pop .35s ease}.shake{animation:shake .28s ease}.finishPulse{animation:pulse .9s infinite alternate}@keyframes pop{0%{transform:scale(.96)}70%{transform:scale(1.03)}100%{transform:scale(1)}}@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-3px)}}@keyframes pulse{from{filter:saturate(1)}to{filter:saturate(1.7);box-shadow:0 0 22px rgba(251,191,36,.65)}}
+@media(max-width:820px){.screen{height:calc(100vh - 14px);border-radius:20px}.app{padding:7px}.start{grid-template-columns:1fr}.hero{display:none}.login{padding:24px}.answers{grid-template-columns:1fr;gap:8px}.answer{min-height:64px;font-size:17px}.questionCard{min-height:110px;padding:14px}.qText{font-size:22px}.top{padding:10px}.pill{font-size:12px;padding:7px 9px}.feedback{height:62px}.grid{grid-template-columns:1fr 1fr}.result h1{font-size:36px}.box b{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="app"><div class="screen">
+  <section id="startScreen" class="start">
+    <div class="hero">
+      <div class="badge">🏆 THCS QUIZ CHALLENGE</div>
+      <h1>Rung Chuông Vàng</h1>
+      <p>Ôn hết bộ câu hỏi, trả lời nhanh, nghe lời khen vui nhộn và chụp kết quả cuối game để so sánh với bạn bè.</p>
+      <div class="features">
+        <div class="feature">✅ Không chọn môn — đi lần lượt toàn bộ câu hỏi</div>
+        <div class="feature">⚡ Tự chuyển câu sau khi trả lời</div>
+        <div class="feature">🎧 Giọng trẻ em vui nhộn bằng tiếng Anh</div>
+        <div class="feature">📸 Cuối game có bảng tổng kết để chụp màn hình</div>
+      </div>
+    </div>
+    <div class="login">
+      <h2>Nhập tên người chơi</h2>
+      <label for="playerName">Nickname</label>
+      <input id="playerName" placeholder="Ví dụ: Minh Anh" maxlength="24" autocomplete="off" />
+      <button class="primary" id="startBtn">BẮT ĐẦU ÔN LUYỆN</button>
+      <div class="note">Lưu ý: Trình duyệt cần cho phép âm thanh. Sau khi bấm bắt đầu, game sẽ tự đọc câu khen/động viên khi trả lời.</div>
+    </div>
+  </section>
+
+  <section id="gameScreen" class="game hidden">
+    <div class="top">
+      <div class="stats">
+        <div class="pill">👤 <span id="nameStat"></span></div>
+        <div class="pill gold">📘 Câu <span id="numStat">1</span>/<span id="totalStat">0</span></div>
+        <div class="pill">✅ Đúng: <span id="rightStat">0</span></div>
+        <div class="pill">❌ Sai: <span id="wrongStat">0</span></div>
+        <div class="pill">⏱ <span id="timerStat">00:00</span></div>
+      </div>
+      <button class="soundBtn" id="soundBtn">🔊 Âm thanh</button>
+      <div class="progressWrap"><div id="progress" class="progress"></div></div>
+    </div>
+    <div class="stage">
+      <div id="questionCard" class="questionCard">
+        <div><div id="subject" class="subject">Môn học</div><div id="qText" class="qText">Câu hỏi</div></div>
+      </div>
+      <div id="answers" class="answers"></div>
+    </div>
+    <div class="feedback">
+      <div id="bubble" class="bubble">Sẵn sàng chưa?</div>
+      <div id="nextHint" class="nextHint">Chọn đáp án để tiếp tục</div>
+    </div>
+  </section>
+
+  <section id="finishScreen" class="finish hidden">
+    <div class="result">
+      <h1>🏆 Hoàn thành!</h1>
+      <p id="resultName" style="font-weight:900;font-size:22px;margin:0"></p>
+      <div class="grid">
+        <div class="box"><b id="resultRight">0</b><span>Câu đúng</span></div>
+        <div class="box"><b id="resultWrong">0</b><span>Câu sai</span></div>
+        <div class="box"><b id="resultAcc">0%</b><span>Tỷ lệ chính xác</span></div>
+        <div class="box"><b id="resultTime">00:00</b><span>Thời gian</span></div>
+      </div>
+      <div class="photoTip">📸 Hãy chụp màn hình kết quả này để gửi cho bạn bè/thầy cô so sánh.</div>
+      <button class="primary" onclick="location.reload()">CHƠI LẠI</button>
+    </div>
+  </section>
+</div></div>
+<script>
+const QUESTIONS = [
+ {
+  "s": "Ngữ văn",
+  "q": "Nhà văn nào được mệnh danh là “nhà văn của tuổi thơ” với những trang viết giàu trí tưởng tượng và nhân hậu như Dế Mèn phiêu lưu kí?",
+  "a": [
+   "Nguyễn Nhật Ánh",
+   "Tô Hoài",
+   "Kim Lân",
+   "Thạch Lam"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Ngữ văn",
+  "q": "Tác giả nào sau đây vừa là nhà quân sự, vừa là danh nhân văn hóa thế giới?",
+  "a": [
+   "Nguyễn Du",
+   "Nguyễn Trãi",
+   "Hồ Xuân Hương",
+   "Nguyễn Đình Chiểu"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Ngữ văn",
+  "q": "Trong câu “Tiếng suối trong như tiếng hát xa”, tác giả đã sử dụng biện pháp tu từ nào?",
+  "a": [
+   "Nhân hóa",
+   "Điệp ngữ",
+   "So sánh",
+   "Hoán dụ"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Ngữ văn",
+  "q": "Từ nào dưới đây là từ láy?",
+  "a": [
+   "Lung linh",
+   "Học tập",
+   "Nhà cửa",
+   "Xe đạp"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Ngữ văn",
+  "q": "Trong câu “Buổi sáng, sân trường rộn rã tiếng cười.” đâu là trạng ngữ?",
+  "a": [
+   "Sân trường",
+   "Rộn rã tiếng cười",
+   "Buổi sáng",
+   "Tiếng cười"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Ngữ văn",
+  "q": "Câu nào dưới đây là câu đặc biệt?",
+  "a": [
+   "Tôi đang học bài.",
+   "Mưa rồi!",
+   "Bạn Lan rất chăm chỉ.",
+   "Chim hót líu lo."
+  ],
+  "c": 1
+ },
+ {
+  "s": "Ngữ văn",
+  "q": "Chi tiết “Dế Mèn ân hận trước cái chết của Dế Choắt” trong Dế Mèn phiêu lưu kí gửi gắm bài học gì?",
+  "a": [
+   "Không nên đi chơi xa",
+   "Phải biết sống khiêm tốn và có trách nhiệm",
+   "Không nên kết bạn",
+   "Cần mạnh mẽ hơn người khác"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Ngữ văn",
+  "q": "Tác phẩm nào dưới đây đề cao vẻ đẹp của tình mẫu tử?",
+  "a": [
+   "Sang thu",
+   "Mây và sóng",
+   "Đồng chí",
+   "Bài thơ về tiểu đội xe không kính"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Ngữ văn",
+  "q": "Trong văn học, yếu tố nào tuy “nhỏ bé nhưng làm thay đổi cả câu chuyện”?",
+  "a": [
+   "Tên tác giả",
+   "Nhan đề tác phẩm",
+   "Chi tiết nghệ thuật đắt giá",
+   "Số trang văn bản"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Ngữ văn",
+  "q": "Cách học nào giúp học Văn hiệu quả và sâu sắc nhất theo tinh thần chương trình GDPT 2018?",
+  "a": [
+   "Học thuộc tất cả văn mẫu",
+   "Chỉ chép bài thật đẹp",
+   "Biết liên hệ tác phẩm với đời sống và cảm xúc bản thân",
+   "Ghi nhớ càng nhiều số liệu càng tốt"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Ngữ văn",
+  "q": "Trong câu thơ “Ôi Tổ quốc ta yêu như máu thịt”, từ “máu thịt” gợi mối quan hệ như thế nào?",
+  "a": [
+   "Xa lạ",
+   "Tạm thời",
+   "Gắn bó thiêng liêng, không thể tách rời",
+   "Bình thường"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Ngữ văn",
+  "q": "Trong tiếng Việt, dấu câu nào được xem là “dấu hiệu của cảm xúc mạnh”?",
+  "a": [
+   "Dấu chấm",
+   "Dấu hai chấm",
+   "Dấu ngoặc kép",
+   "Dấu chấm than"
+  ],
+  "c": 3
+ },
+ {
+  "s": "Kiến thức trường & xã hội",
+  "q": "Theo quy định của Luật Trẻ em 2016, trẻ em là người dưới bao nhiêu tuổi?",
+  "a": [
+   "Dưới 14 tuổi",
+   "Dưới 15 tuổi",
+   "Dưới 16 tuổi",
+   "Dưới 18 tuổi"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Kiến thức trường & xã hội",
+  "q": "Địa chỉ của trường Tiểu học và THCS MAY hiện nay thuộc phường nào?",
+  "a": [
+   "Phương Liệt",
+   "Đại Kim",
+   "Đại Từ",
+   "Định Công"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Kiến thức trường & xã hội",
+  "q": "Loại rác thải nào được gọi là “ô nhiễm trắng”, gây hại nghiêm trọng cho đại dương và sức khỏe con người?",
+  "a": [
+   "Rác thải hữu cơ",
+   "Giấy vụn",
+   "Rác thải nhựa và túi nilon",
+   "Kim loại cũ"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Kiến thức trường & xã hội",
+  "q": "Tại sao khi di cư, các đàn chim như ngỗng trời, cò thường bay theo đội hình chữ V?",
+  "a": [
+   "Để làm đẹp đội hình",
+   "Để tận dụng luồng khí hướng lên từ con bay trước giúp tiết kiệm sức",
+   "Để dễ dàng tấn công kẻ thù",
+   "Để con đầu đàn dễ quan sát phía sau"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Kiến thức trường & xã hội",
+  "q": "“Copilot” hay “Gemini” là những ví dụ tiêu biểu cho lĩnh vực công nghệ nào đang bùng nổ hiện nay?",
+  "a": [
+   "Thực tế ảo",
+   "Trí tuệ nhân tạo AI",
+   "In 3D",
+   "Thương mại điện tử"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Kiến thức trường & xã hội",
+  "q": "Nếu thấy một bạn trong lớp đang buồn và có hành vi “bốc đồng”, hành động nào thể hiện sự thấu hiểu nhất?",
+  "a": [
+   "Mắng bạn vì bạn làm ồn lớp",
+   "Bỏ mặc bạn vì không liên quan",
+   "Lắng nghe bạn chia sẻ và khuyên bạn dừng lại 3 giây để bình tĩnh",
+   "Báo ngay thầy cô để bạn bị kỷ luật"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Kiến thức trường & xã hội",
+  "q": "Trong bối cảnh bùng nổ trí tuệ nhân tạo AI, thái độ nào đúng đắn nhất đối với học sinh?",
+  "a": [
+   "Chỉ dùng AI để giải trí và chơi game",
+   "Học cách sử dụng AI như công cụ hỗ trợ tư duy và sáng tạo",
+   "Tẩy chay và không bao giờ sử dụng công nghệ",
+   "Phụ thuộc hoàn toàn vào AI để làm bài tập"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Kiến thức trường & xã hội",
+  "q": "Khi tham gia hoạt động tập thể, kỹ năng nào quan trọng nhất để đạt kết quả tốt?",
+  "a": [
+   "Làm việc độc lập tuyệt đối",
+   "Phối hợp và làm việc nhóm",
+   "Chỉ tập trung vào kỹ thuật cá nhân",
+   "Cạnh tranh gay gắt với thành viên trong đội"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Kiến thức trường & xã hội",
+  "q": "Nếu thấy một bạn có thói quen hoặc ngoại hình khác biệt và bị trêu chọc, em nên làm gì?",
+  "a": [
+   "Giữ im lặng để không vướng rắc rối",
+   "Tham gia trêu chọc cùng các bạn",
+   "Lên tiếng bảo vệ bạn hoặc báo cáo thầy cô về hành vi bắt nạt",
+   "Khuyên bạn thay đổi để giống mọi người"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Kiến thức trường & xã hội",
+  "q": "Nếu đang ở trong nhà và bất ngờ xảy ra động đất, hành động nào đúng theo quy tắc “Drop - Cover - Hold on”?",
+  "a": [
+   "Chạy ra ban công hoặc cửa sổ",
+   "Quỳ xuống, trú dưới gầm bàn vững chắc và nắm chặt chân bàn",
+   "Sử dụng thang máy xuống tầng trệt",
+   "Đứng sát tủ kính hoặc kệ sách lớn"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Toán",
+  "q": "Trong Toán học, một số tự nhiên được gọi là gì nếu nó bằng bình phương của một số tự nhiên khác?",
+  "a": [
+   "Số nguyên tố",
+   "Số chính phương",
+   "Số đối xứng",
+   "Số hoàn hảo"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Toán",
+  "q": "Kim giờ và kim phút của đồng hồ tạo thành một góc bao nhiêu độ khi đồng hồ chỉ đúng 9 giờ?",
+  "a": [
+   "45°",
+   "90°",
+   "180°",
+   "120°"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Toán",
+  "q": "Nhà bác học Hy Lạp cổ đại nổi tiếng với câu nói “Hãy cho tôi một điểm tựa, tôi sẽ nhấc bổng cả Trái Đất lên” là ai?",
+  "a": [
+   "Thales",
+   "Archimedes",
+   "Aristotle",
+   "Plato"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Toán",
+  "q": "Trong các số sau đây, số nào chia hết cho 9?",
+  "a": [
+   "1234",
+   "5678",
+   "2025",
+   "3031"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Toán",
+  "q": "Số tự nhiên nhỏ nhất có hai chữ số mà cả hai chữ số đều là số nguyên tố là gì?",
+  "a": [
+   "11",
+   "22",
+   "23",
+   "13"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Toán",
+  "q": "Một người mua ngựa 60 đồng vàng, bán 70; mua lại 80, bán 90. Cuối cùng người đó lãi bao nhiêu?",
+  "a": [
+   "10 đồng vàng",
+   "20 đồng vàng",
+   "30 đồng vàng",
+   "90 đồng vàng"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Toán",
+  "q": "Nếu hôm nay là thứ Hai, thì sau 10 ngày là thứ mấy?",
+  "a": [
+   "Thứ Hai",
+   "Thứ Ba",
+   "Thứ Tư",
+   "Thứ Năm"
+  ],
+  "c": 3
+ },
+ {
+  "s": "Toán",
+  "q": "Một hình vuông có diện tích 64cm². Chu vi của hình vuông đó là bao nhiêu?",
+  "a": [
+   "16 cm",
+   "32 cm",
+   "64 cm",
+   "8 cm"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Toán",
+  "q": "Một con ốc sên leo cột cao 10m. Ngày leo 3m, đêm tụt 2m. Sau bao nhiêu ngày thì chạm đỉnh?",
+  "a": [
+   "10 ngày",
+   "9 ngày",
+   "8 ngày",
+   "7 ngày"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Toán",
+  "q": "Có 1 tờ giấy, mỗi lần gấp đôi. Gấp 5 lần thì có bao nhiêu lớp?",
+  "a": [
+   "16 lớp",
+   "25 lớp",
+   "32 lớp",
+   "64 lớp"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Đâu là đặc điểm cơ bản nhất để phân biệt một vật sống như con mèo với vật không sống như hòn đá?",
+  "a": [
+   "Khả năng di chuyển",
+   "Có màu sắc đẹp và kích thước lớn",
+   "Khả năng trao đổi chất và sinh sản",
+   "Khả năng phản ứng chậm với môi trường"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Tại sao khi trồng cây trong nhà, người ta thường đặt cây ở gần cửa sổ?",
+  "a": [
+   "Để cây nhận ánh sáng thực hiện quang hợp",
+   "Để cây được mát hơn nhờ gió trời",
+   "Để tránh mưa gió làm gãy thân cây",
+   "Để làm đẹp không gian cửa sổ"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Thành phần nào của tế bào được ví như “bộ não” điều khiển mọi hoạt động sống?",
+  "a": [
+   "Màng tế bào",
+   "Nhân tế bào",
+   "Chất tế bào",
+   "Lục lạp"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Vì sao thực vật, cây xanh, được gọi là sinh vật tự dưỡng?",
+  "a": [
+   "Vì chúng sống lâu hơn động vật",
+   "Vì chúng tự di chuyển tìm thức ăn",
+   "Vì chúng không cần nước",
+   "Vì chúng tự tổng hợp chất hữu cơ từ năng lượng ánh sáng"
+  ],
+  "c": 3
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Hệ cơ quan nào vận chuyển Oxygen và chất dinh dưỡng đi nuôi toàn bộ cơ thể người?",
+  "a": [
+   "Hệ tuần hoàn",
+   "Hệ hô hấp",
+   "Hệ tiêu hóa",
+   "Hệ bài tiết"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Tại sao khi chạy bộ đường dài, chúng ta thường thở gấp và tim đập nhanh?",
+  "a": [
+   "Vì phổi bị thu nhỏ",
+   "Vì cơ thể cần thêm năng lượng và Oxygen cho tế bào cơ bắp",
+   "Vì luôn cảm thấy sợ hãi",
+   "Vì cơ thể cần giữ nhiệt độ lạnh hơn"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Vì sao không nên để quá nhiều hoa tươi hoặc cây xanh trong phòng ngủ đóng kín cửa vào ban đêm?",
+  "a": [
+   "Vì ban đêm cây hô hấp, lấy Oxygen và thải CO2",
+   "Vì cây tỏa mùi thơm quá nồng",
+   "Vì cây thu hút nhiều côn trùng",
+   "Vì cây hút hết hơi ẩm làm khô da"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Tại sao khi bị sốt cao, cơ thể thường mất nước và cần uống nhiều nước hoặc Oresol?",
+  "a": [
+   "Vì nước làm virus sợ hãi",
+   "Vì nước làm đẹp da và tăng thị lực",
+   "Vì sốt làm dạ dày ngưng tiêu hóa",
+   "Vì nước giúp hạ nhiệt qua bài tiết mồ hôi"
+  ],
+  "c": 3
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Vì sao nên ăn nhiều rau xanh và trái cây mỗi ngày?",
+  "a": [
+   "Vì cung cấp nhiều chất béo",
+   "Vì cung cấp vitamin, khoáng chất và chất xơ giúp tiêu hóa tốt",
+   "Vì thay thế hoàn toàn thịt cá",
+   "Vì chứa chất làm con người không bao giờ bị bệnh"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Cây xanh bị héo do thiếu nước, sau khi tưới vào gốc vài giờ cây tươi trở lại. Hiện tượng này chứng minh điều gì?",
+  "a": [
+   "Cây tự sản xuất nước khi gặp đất",
+   "Nước làm lá biến đổi trực tiếp thành màu xanh",
+   "Rễ hút nước và vận chuyển lên lá nhờ mạch dẫn",
+   "Cây chỉ cần nước chứ không cần đất"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Khí nào trong không khí duy trì sự cháy và sự thở của con người?",
+  "a": [
+   "Nitrogen",
+   "Carbon dioxide",
+   "Oxygen",
+   "Argon"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Khi hòa tan đường vào nước, ta thu được nước đường. Nước đường được gọi là gì?",
+  "a": [
+   "Chất tinh khiết",
+   "Hợp chất",
+   "Nhũ tương",
+   "Dung dịch"
+  ],
+  "c": 3
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Kim loại nào thường được dùng làm lõi dây điện nhờ khả năng dẫn điện rất tốt?",
+  "a": [
+   "Sắt",
+   "Đồng",
+   "Nhôm",
+   "Vàng"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Sự biến đổi nào sau đây là hiện tượng hóa học?",
+  "a": [
+   "Đun nóng đường đến khi cháy đen và có mùi khét",
+   "Nước đá tan chảy thành nước lỏng",
+   "Hòa tan muối ăn vào nước",
+   "Dùng cưa cắt khúc gỗ"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Độ tan của một chất rắn trong nước thường thay đổi thế nào khi tăng nhiệt độ?",
+  "a": [
+   "Giảm đáng kể",
+   "Không thay đổi",
+   "Tăng lên",
+   "Chất rắn biến mất hoàn toàn"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Vì sao nến vụt tắt khi úp cốc thủy tinh lên ngọn nến đang cháy?",
+  "a": [
+   "Vì Oxygen trong cốc cạn kiệt và không được cung cấp thêm",
+   "Vì nến thiếu ánh sáng bên ngoài",
+   "Vì nến thiếu nhiệt độ để cháy",
+   "Vì CO2 làm nến bị ướt"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Để tẩy cặn trắng ở đáy ấm đun nước, thường dùng giấm ăn. Nguyên lý khoa học là gì?",
+  "a": [
+   "Giấm mài mòn vật lý lớp cặn",
+   "Acid trong giấm phản ứng với muối Carbonate trong cặn tạo chất tan",
+   "Giấm làm cặn lạnh đột ngột nên bong ra",
+   "Giấm giúp nước sôi nhanh nên cặn biến mất"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Tại sao khi sản xuất nước giải khát có gas, người ta nạp khí CO2 ở áp suất cao?",
+  "a": [
+   "Để khử trùng tuyệt đối",
+   "Để tăng độ tan của CO2 trong nước giải khát",
+   "Để chai trông đầy đặn hơn",
+   "Để tạo màu sắc hấp dẫn"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Vì sao đồ dùng bằng sắt để ngoài không khí ẩm lâu ngày thường bị gỉ?",
+  "a": [
+   "Do sắt phản ứng với Oxygen và hơi nước tạo oxide sắt",
+   "Do bụi bẩn bám quá nhiều",
+   "Do vi khuẩn ăn mòn bề mặt sắt",
+   "Do sắt tự phân hủy theo thời gian"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Khi quan sát cây nến đang cháy, bộ phận nào của nến thực sự cháy để tạo ngọn lửa?",
+  "a": [
+   "Toàn bộ phần sáp lỏng ở chân bấc",
+   "Sáp nến hóa hơi bay quanh sợi bấc",
+   "Sợi bấc nến bằng sợi bông",
+   "Phần sáp nến thể rắn bên ngoài"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Tốc độ của một vật cho biết điều gì về chuyển động của vật đó?",
+  "a": [
+   "Hướng chuyển động",
+   "Vị trí hiện tại",
+   "Mức độ nhanh hay chậm của chuyển động",
+   "Khối lượng và thể tích"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Âm thanh không thể truyền qua môi trường nào?",
+  "a": [
+   "Chất lỏng",
+   "Chất rắn",
+   "Chất khí",
+   "Chân không"
+  ],
+  "c": 3
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Khi ánh sáng chiếu đến một chiếc gương phẳng, hiện tượng gì xảy ra?",
+  "a": [
+   "Ánh sáng xuyên thẳng qua gương",
+   "Ánh sáng bị phản xạ lại môi trường cũ",
+   "Ánh sáng bị hấp thụ hoàn toàn thành nhiệt",
+   "Ánh sáng bị bẻ cong thành vòng tròn"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Lực đẩy Archimedes tác dụng lên vật nhúng trong chất lỏng có phương và chiều như thế nào?",
+  "a": [
+   "Phương nằm ngang, chiều trái sang phải",
+   "Phương thẳng đứng, chiều trên xuống dưới",
+   "Phương thẳng đứng, chiều dưới lên trên",
+   "Theo mọi phương và mọi chiều"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Tần số dao động của âm thanh càng lớn thì âm phát ra như thế nào?",
+  "a": [
+   "Càng cao, càng bổng",
+   "Càng to, càng mạnh về âm lượng",
+   "Càng thấp, càng trầm",
+   "Càng kéo dài về thời gian"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Tại sao nhìn xuống hồ nước tĩnh lặng, ta thấy hình ảnh tòa nhà hoặc cây cối lộn ngược dưới mặt nước?",
+  "a": [
+   "Do khúc xạ ánh sáng qua nước",
+   "Do mặt nước như gương phẳng phản xạ ánh sáng",
+   "Do mắt luôn tự đảo ngược hình ảnh",
+   "Do nước biến đổi hình dạng vật thể"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Một người nghe thấy tiếng sét sau 3 giây kể từ khi nhìn thấy chớp. Khoảng cách đến nơi sét đánh là bao nhiêu? Biết tốc độ âm thanh là 340 m/s.",
+  "a": [
+   "113 m",
+   "1020 m",
+   "680 m",
+   "343 m"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Vì sao lốp xe ô tô, xe máy có các khía rãnh trên bề mặt tiếp xúc?",
+  "a": [
+   "Để tăng lực ma sát, giúp xe không trượt",
+   "Để xe đi nhanh hơn",
+   "Để tiết kiệm cao su",
+   "Chỉ để trang trí"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Tại sao ở đỉnh núi cao, việc luộc chín thức ăn mất nhiều thời gian hơn so với đồng bằng?",
+  "a": [
+   "Vì thiếu Oxygen cho lửa cháy",
+   "Vì nước chứa quá nhiều khoáng chất",
+   "Vì áp suất khí quyển giảm làm nhiệt độ sôi của nước thấp hơn 100°C",
+   "Vì nhiệt độ không khí quá lạnh"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Khoa học tự nhiên",
+  "q": "Khi dùng tấm bìa đậy kín cốc nước đầy rồi lật ngược, nước không chảy ra. Hiện tượng này chứng minh điều gì?",
+  "a": [
+   "Nước có lực dính rất lớn với bìa",
+   "Tấm bìa hút nước giữ lại",
+   "Trọng lực không tác dụng lên nước",
+   "Sự tồn tại của áp suất khí quyển tác dụng từ dưới lên"
+  ],
+  "c": 3
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Công trình kiến trúc nổi tiếng tại Hà Nội có hình dáng như đóa sen nở trên mặt nước, được xây dựng thời vua Lý Thái Tông, là gì?",
+  "a": [
+   "Chùa Một Cột",
+   "Văn Miếu Quốc Tử Giám",
+   "Tháp Rùa",
+   "Cầu Long Biên"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "“Tay cầm hai quả hồng đào... Gò Đống Đa đó, sử xanh còn truyền.” Nhân vật được nhắc đến là vị hoàng đế nào?",
+  "a": [
+   "Lê Lợi",
+   "Quang Trung Nguyễn Huệ",
+   "Trần Nhân Tông",
+   "Lý Thái Tổ"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Khi ra đi tìm đường cứu nước năm 1911, Nguyễn Tất Thành nói “Đây, tiền đây!” và chỉ vào đâu?",
+  "a": [
+   "Chiếc ví",
+   "Hai bàn tay",
+   "Trái tim",
+   "Chiếc vali"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Châu lục nào có diện tích lớn nhất thế giới?",
+  "a": [
+   "Châu Phi",
+   "Châu Âu",
+   "Châu Á",
+   "Châu Mỹ"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Sông dài nhất Việt Nam là sông nào?",
+  "a": [
+   "Sông Hồng",
+   "Sông Đà",
+   "Sông Mekong / Cửu Long",
+   "Sông Đồng Nai"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Nước ta thuộc châu lục nào?",
+  "a": [
+   "Châu Á",
+   "Châu Âu",
+   "Châu Phi",
+   "Châu Đại Dương"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Phát hiện bạn bị nhóm học sinh khóa trên đe dọa và bắt nộp tiền, em nên làm gì?",
+  "a": [
+   "Khuyên bạn nộp tiền để yên ổn",
+   "Gặp giáo viên chủ nhiệm hoặc ban giám hiệu để báo cáo và đề nghị giữ bí mật",
+   "Rủ bạn khác đi đánh nhóm đó",
+   "Im lặng kệ bạn tự xử lý"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Trong các di sản sau đây, đâu là ví dụ về di sản văn hóa phi vật thể?",
+  "a": [
+   "Thánh địa Mỹ Sơn",
+   "Vịnh Hạ Long",
+   "Nghệ thuật Hát Xoan Phú Thọ",
+   "Cố đô Huế"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Tỷ lệ 10% thu nhập dành cho lọ “Giáo dục” có mục tiêu chính là gì?",
+  "a": [
+   "Ủng hộ quỹ khuyến học",
+   "Đóng học phí cho con cái",
+   "Mua văn phòng phẩm đẹp",
+   "Đầu tư vào bản thân như mua sách, khóa học"
+  ],
+  "c": 3
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Đỉnh núi cao nhất Việt Nam, được mệnh danh là “nóc nhà Đông Dương”, tên là gì?",
+  "a": [
+   "Fansipan",
+   "Bạch Mã",
+   "Ba Vì",
+   "Yên Tử"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Việt Nam có đường bờ biển dài bao nhiêu km?",
+  "a": [
+   "2.360 km",
+   "3.260 km",
+   "4.260 km",
+   "5.260 km"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Tỉnh nào có diện tích lớn nhất Việt Nam hiện nay?",
+  "a": [
+   "Nghệ An",
+   "Gia Lai",
+   "Lâm Đồng",
+   "Thanh Hóa"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Quần đảo Trường Sa và Hoàng Sa thuộc chủ quyền của quốc gia nào?",
+  "a": [
+   "Việt Nam",
+   "Thái Lan",
+   "Malaysia",
+   "Philippines"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Quốc gia nào có diện tích lớn nhất thế giới?",
+  "a": [
+   "Mỹ",
+   "Canada",
+   "Nga",
+   "Trung Quốc"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Châu lục nào lạnh nhất và không có dân cư sinh sống thường xuyên?",
+  "a": [
+   "Châu Âu",
+   "Châu Nam Cực",
+   "Châu Á",
+   "Châu Phi"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Đại dương nào lớn nhất hành tinh?",
+  "a": [
+   "Đại Tây Dương",
+   "Ấn Độ Dương",
+   "Thái Bình Dương",
+   "Bắc Băng Dương"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Hang động tự nhiên lớn nhất thế giới nằm ở tỉnh nào của Việt Nam?",
+  "a": [
+   "Quảng Bình",
+   "Ninh Bình",
+   "Lào Cai",
+   "Quảng Ninh"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "“Xứ sở Mặt trời mọc” là biệt danh của quốc gia nào?",
+  "a": [
+   "Nhật Bản",
+   "Hàn Quốc",
+   "Trung Quốc",
+   "Thái Lan"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Vị anh hùng dân tộc nào đã lấy thân mình lấp lỗ châu mai trong chiến dịch Điện Biên Phủ?",
+  "a": [
+   "Tô Vĩnh Diện",
+   "Phan Đình Giót",
+   "Bế Văn Đàn",
+   "La Văn Cầu"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Đội Thiếu niên Tiền phong Hồ Chí Minh thành lập ngày, tháng, năm nào?",
+  "a": [
+   "15/5/1941",
+   "19/5/1945",
+   "2/9/1945",
+   "30/4/1975"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Khoa học xã hội",
+  "q": "Vị vua lên ngôi khi mới 7 tuổi, là vị vua cuối cùng triều Lý và là Nữ hoàng duy nhất trong lịch sử Việt Nam là ai?",
+  "a": [
+   "Ỷ Lan",
+   "Lý Chiêu Hoàng",
+   "Hai Bà Trưng",
+   "Bà Triệu"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Tiếng Anh",
+  "q": "Odd one out: Notebook, Pencil, Ruler, Student.",
+  "a": [
+   "Notebook",
+   "Pencil",
+   "Ruler",
+   "Student"
+  ],
+  "c": 3
+ },
+ {
+  "s": "Tiếng Anh",
+  "q": "Complete the sentence: “Last night, I ________ a lot of photos with my new camera.”",
+  "a": [
+   "take",
+   "takes",
+   "took",
+   "am taking"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Tiếng Anh",
+  "q": "Identify the tense used in this sentence: “I think it will rain tomorrow afternoon.”",
+  "a": [
+   "Present Simple",
+   "Past Simple",
+   "Present Continuous",
+   "Future Simple"
+  ],
+  "c": 3
+ },
+ {
+  "s": "Tiếng Anh",
+  "q": "Choose the best answer: “They are good friends. They ________ each other for ten years.”",
+  "a": [
+   "know",
+   "knew",
+   "have known",
+   "are knowing"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Tiếng Anh",
+  "q": "Fill in the blanks: “My birthday is ________ October 20th and I usually have a party ________ home.”",
+  "a": [
+   "on / at",
+   "in / at",
+   "on / in",
+   "in / on"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Tiếng Anh",
+  "q": "The Earth is getting warmer because of “global ________”.",
+  "a": [
+   "cooling",
+   "warming",
+   "heating",
+   "burning"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Tiếng Anh",
+  "q": "Many people think that smartphones are very ________ in our daily life.",
+  "a": [
+   "use",
+   "useful",
+   "uselessly",
+   "usage"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Tiếng Anh",
+  "q": "The English competition is coming. You should ________ to get the best result.",
+  "a": [
+   "burn the midnight oil",
+   "rain cats and dogs",
+   "break a leg",
+   "a piece of cake"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Tiếng Anh",
+  "q": "You should ________ your shoes when you enter a Japanese house.",
+  "a": [
+   "take off",
+   "put on",
+   "look for",
+   "get up"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Tiếng Anh",
+  "q": "Choose the correct option: “My father is a doctor. He works at ________ hospital in the city center.”",
+  "a": [
+   "a",
+   "an",
+   "the",
+   "no article"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Tiếng Anh",
+  "q": "How many consonants are there in the English alphabet?",
+  "a": [
+   "21",
+   "23",
+   "25",
+   "27"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Tiếng Anh",
+  "q": "Which month of the year has the least number of days?",
+  "a": [
+   "March",
+   "July",
+   "February",
+   "December"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Tiếng Anh",
+  "q": "Who composed the Vietnamese National Anthem?",
+  "a": [
+   "Pham Tuyen",
+   "Van Cao",
+   "Doan Nho",
+   "Trinh Cong Son"
+  ],
+  "c": 1
+ },
+ {
+  "s": "Tiếng Anh",
+  "q": "When is Vietnam Doctors' Day?",
+  "a": [
+   "28/2/1954",
+   "17/2/1955",
+   "27/2/1955",
+   "7/2/1955"
+  ],
+  "c": 2
+ },
+ {
+  "s": "Tiếng Anh",
+  "q": "How many numbers between 10 and 100 are divisible by 5?",
+  "a": [
+   "18",
+   "19",
+   "20",
+   "21"
+  ],
+  "c": 0
+ },
+ {
+  "s": "Tiếng Anh",
+  "q": "What do you call a type of shape that has five sides?",
+  "a": [
+   "rectangle",
+   "square",
+   "pentagon",
+   "hexagon"
+  ],
+  "c": 2
+ }
+];
+let idx=0, right=0, wrong=0, player='', startTime=0, timerInt=null, locked=false, finishSpoken=false;
+
+// Trộn ngẫu nhiên câu hỏi mỗi lần chơi để giống thi thực tế
+function shuffleQuestions(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+}
+shuffleQuestions(QUESTIONS);
+
+const correctPhrases=['Good job!','Well done!','Keep up the good work!'];
+const wrongPhrases=['Keep fighting!','Keep your chin up!',"Don't give up!"];
+function $(id){return document.getElementById(id)}
+function fmt(sec){let m=Math.floor(sec/60),s=sec%60;return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
+function speak(text,type='normal'){
+  try{
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text); u.lang='en-US'; u.volume=1;
+    u.pitch= type==='good'?1.65:type==='bad'?1.35:1.55; u.rate= type==='bad'?0.98:1.12;
+    const voices=speechSynthesis.getVoices();
+    const en=voices.filter(v=>/en/i.test(v.lang));
+    const childish=en.find(v=>/female|zira|samantha|google us english|english/i.test(v.name.toLowerCase()));
+    if(childish) u.voice=childish;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function beep(kind){
+  try{const ac=new (window.AudioContext||window.webkitAudioContext)(); const o=ac.createOscillator(); const g=ac.createGain(); o.connect(g); g.connect(ac.destination); o.type='sine';
+    if(kind==='good'){o.frequency.setValueAtTime(660,ac.currentTime);o.frequency.exponentialRampToValueAtTime(990,ac.currentTime+.12)}
+    else{o.frequency.setValueAtTime(220,ac.currentTime);o.frequency.exponentialRampToValueAtTime(150,ac.currentTime+.16)}
+    g.gain.setValueAtTime(.001,ac.currentTime);g.gain.exponentialRampToValueAtTime(.18,ac.currentTime+.02);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+.22);o.start();o.stop(ac.currentTime+.24)}catch(e){}
+}
+function startGame(){
+  player=$('playerName').value.trim(); if(!player){$('playerName').focus(); $('playerName').style.borderColor='#ef4444'; return;}
+  $('startScreen').classList.add('hidden'); $('gameScreen').classList.remove('hidden'); $('nameStat').textContent=player; $('totalStat').textContent=QUESTIONS.length;
+  startTime=Date.now(); timerInt=setInterval(()=>{$('timerStat').textContent=fmt(Math.floor((Date.now()-startTime)/1000))},500);
+  speak('Welcome! Let us start!', 'good'); render();
+}
+function render(){
+  locked=false; const item=QUESTIONS[idx]; $('numStat').textContent=idx+1; $('rightStat').textContent=right; $('wrongStat').textContent=wrong; $('subject').textContent=item.s; $('qText').textContent=item.q;
+  const pct=(idx/QUESTIONS.length)*100; $('progress').style.width=pct+'%'; $('progress').classList.toggle('finishPulse', QUESTIONS.length-idx<=10);
+  if(QUESTIONS.length-idx===10 && !finishSpoken){finishSpoken=true; setTimeout(()=>speak('Finish strong!','good'),250)}
+  $('bubble').className='bubble'; $('bubble').textContent=QUESTIONS.length-idx<=10?'🏁 Finish strong!':'Chọn đáp án đúng nhé!'; $('nextHint').textContent='Sau khi trả lời, game tự chuyển câu';
+  const box=$('answers'); box.innerHTML=''; item.a.forEach((txt,i)=>{const b=document.createElement('button'); b.className='answer'; b.innerHTML=`<span class="letter">${String.fromCharCode(65+i)}</span><span>${txt}</span>`; b.onclick=()=>choose(i); box.appendChild(b);});
+}
+function choose(i){
+  if(locked)return; locked=true; const item=QUESTIONS[idx]; const buttons=[...document.querySelectorAll('.answer')]; const ok=i===item.c;
+  buttons.forEach((b,k)=>{b.disabled=true;if(k===item.c)b.classList.add('correct'); if(k===i&&!ok)b.classList.add('wrong'); if(k!==item.c&&k!==i)b.classList.add('dim')});
+  if(ok){right++; $('bubble').className='bubble good'; const phrase=correctPhrases[Math.floor(Math.random()*correctPhrases.length)]; $('bubble').textContent='🎉 '+phrase; document.querySelector('.screen').classList.add('celebrate'); speak(phrase,'good'); beep('good');}
+  else{wrong++; $('bubble').className='bubble bad'; const phrase=wrongPhrases[Math.floor(Math.random()*wrongPhrases.length)]; $('bubble').textContent='💪 '+phrase; document.querySelector('.screen').classList.add('shake'); speak(phrase,'bad'); beep('bad');}
+  $('rightStat').textContent=right; $('wrongStat').textContent=wrong; $('nextHint').textContent='Đang tự chuyển câu...';
+  setTimeout(()=>{document.querySelector('.screen').classList.remove('celebrate','shake'); idx++; if(idx>=QUESTIONS.length) finish(); else render();}, ok?1150:1650);
+}
+function finish(){
+  clearInterval(timerInt); $('progress').style.width='100%'; $('gameScreen').classList.add('hidden'); $('finishScreen').classList.remove('hidden');
+  const elapsed=Math.floor((Date.now()-startTime)/1000); const acc=Math.round((right/QUESTIONS.length)*100);
+  $('resultName').textContent='Người chơi: '+player; $('resultRight').textContent=right+'/'+QUESTIONS.length; $('resultWrong').textContent=wrong; $('resultAcc').textContent=acc+'%'; $('resultTime').textContent=fmt(elapsed);
+  speak('Congratulations! You finished strong!','good');
+}
+$('startBtn').onclick=startGame; $('playerName').addEventListener('keydown',e=>{if(e.key==='Enter')startGame()}); $('soundBtn').onclick=()=>speak('Good job! Well done! Finish strong!','good');
+if(speechSynthesis.onvoiceschanged!==undefined){speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices()}
+</script>
+</body>
+</html>
